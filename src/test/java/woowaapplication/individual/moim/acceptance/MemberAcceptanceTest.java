@@ -4,22 +4,20 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import woowaapplication.individual.moim.acceptance.support.AcceptanceTest;
 
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
+import static woowaapplication.individual.moim.acceptance.support.CommonSupporter.등록에_성공한다;
+import static woowaapplication.individual.moim.acceptance.support.CommonSupporter.잘못된_요청으로_인해_요청에_실패한다;
+import static woowaapplication.individual.moim.acceptance.support.MemberSupporter.*;
 import static woowaapplication.individual.moim.fixture.MeetingFixture.드럼_모임;
 import static woowaapplication.individual.moim.fixture.MemberFixture.회원_기범;
 import static woowaapplication.individual.moim.fixture.MemberFixture.회원_알렉스;
-import static woowaapplication.individual.moim.fixture.ParticipantFixture.기범_정보;
+import static woowaapplication.individual.moim.fixture.ParticipantFixture.알렉스_정보;
 
 @DisplayName("회원 기능 인수 테스트")
 public class MemberAcceptanceTest extends AcceptanceTest {
-
-    public static final String 주최자_등록_Path = "/api/v1/members/host";
-    public static final String 참여자_등록_Path = "/api/v1/members/participant";
 
     @Nested
     @DisplayNameGeneration(ReplaceUnderscores.class)
@@ -38,19 +36,16 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                         .when().post(주최자_등록_Path)
                         .then().log().all().extract();
 
-                assertThat(회원_등록_결과.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+                잘못된_요청으로_인해_요청에_실패한다(회원_등록_결과);
             }
 
             @Test
             @DisplayName("유효한 정보일 경우 회원 등록에 성공한다")
             void it_member_registration_was_successful() {
-                ExtractableResponse<Response> 회원_등록_결과 = given().log().all()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .body(회원_기범.주최자_회원_등록_요청_데이터_생성(드럼_모임))
-                        .when().post("주최자_등록_Path")
-                        .then().log().all().extract();
+                ExtractableResponse<Response> 회원_등록_결과 = 주최자_회원_등록_요청(회원_기범, 드럼_모임);
 
-                assertThat(회원_등록_결과.statusCode()).isEqualTo(HttpStatus.OK.value());
+                등록에_성공한다(회원_등록_결과);
+                등록된_회원_ID를_포함한_Location이_반환된다(회원_등록_결과, 주최자_등록_Path);
             }
 
             @Nested
@@ -60,11 +55,7 @@ public class MemberAcceptanceTest extends AcceptanceTest {
 
                 @BeforeEach
                 void setUp() {
-                    ExtractableResponse<Response> 회원_등록_결과 = given().log().all()
-                            .contentType(MediaType.APPLICATION_JSON_VALUE)
-                            .body(회원_기범.주최자_회원_등록_요청_데이터_생성(드럼_모임))
-                            .when().post("주최자_등록_Path")
-                            .then().log().all().extract();
+                    ExtractableResponse<Response> 회원_등록_결과 = 주최자_회원_등록_요청(회원_기범, 드럼_모임);
                 }
 
                 @Test
@@ -94,19 +85,16 @@ public class MemberAcceptanceTest extends AcceptanceTest {
                         .when().post(참여자_등록_Path)
                         .then().log().all().extract();
 
-                assertThat(회원_등록_결과.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+                잘못된_요청으로_인해_요청에_실패한다(회원_등록_결과);
             }
 
             @Test
             @DisplayName("유효한 정보일 경우 회원 등록에 성공한다")
             void it_member_registration_was_successful() {
-                ExtractableResponse<Response> 회원_등록_결과 = given().log().all()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .body(회원_알렉스.참여자_회원_등록_요청_데이터_생성(기범_정보))
-                        .when().post(참여자_등록_Path)
-                        .then().log().all().extract();
+                ExtractableResponse<Response> 회원_등록_결과 = 참여자_회원_등록_요청(회원_알렉스, 알렉스_정보);
 
-                assertThat(회원_등록_결과.statusCode()).isEqualTo(HttpStatus.OK.value());
+                등록에_성공한다(회원_등록_결과);
+                등록된_회원_ID를_포함한_Location이_반환된다(회원_등록_결과, 주최자_등록_Path);
             }
 
             @Nested

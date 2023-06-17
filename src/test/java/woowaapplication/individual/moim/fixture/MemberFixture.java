@@ -8,10 +8,10 @@ import static woowaapplication.individual.moim.fixture.FieldFixture.*;
 public enum MemberFixture {
 
     회원_기범("기범", "19970707", "M", "H",
-            "kpmyoung", "테스트는재밌다97", "kpmyung@gmail.com"
+            "kpmyoung", "test테스트는재밌다97", "kpmyung@gmail.com"
     ),
     회원_알렉스("알렉스", "19970727", "M", "P",
-            "gbmyoung", "테스트는중요하다97", "dev.gibeom@gmail.com"
+            "gbmyoung", "test테스트는중요하다97", "dev.gibeom@gmail.com"
     ),
     ;
 
