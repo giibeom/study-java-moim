@@ -3,7 +3,7 @@ package woowaapplication.individual.moim.member.presentation.dto.request;
 import lombok.Builder;
 import lombok.Getter;
 import woowaapplication.individual.moim.common.utils.DateConverter;
-import woowaapplication.individual.moim.meeting.Meeting;
+import woowaapplication.individual.moim.meeting.domain.Meeting;
 import woowaapplication.individual.moim.member.application.command.HostMemberRequest;
 import woowaapplication.individual.moim.member.domain.Gender;
 import woowaapplication.individual.moim.member.domain.Member;

@@ -1,6 +1,6 @@
 package woowaapplication.individual.moim.member.application.command;
 
-import woowaapplication.individual.moim.meeting.Meeting;
+import woowaapplication.individual.moim.meeting.domain.Meeting;
 import woowaapplication.individual.moim.member.domain.Member;
 import woowaapplication.individual.moim.member.domain.MemberRole;
 

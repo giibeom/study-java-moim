@@ -1,7 +1,8 @@
-package woowaapplication.individual.moim.meeting;
+package woowaapplication.individual.moim.participant.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import woowaapplication.individual.moim.meeting.domain.Meeting;
 import woowaapplication.individual.moim.member.domain.Member;
 
 import javax.persistence.*;

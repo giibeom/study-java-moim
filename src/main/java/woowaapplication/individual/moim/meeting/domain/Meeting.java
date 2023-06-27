@@ -1,4 +1,4 @@
-package woowaapplication.individual.moim.meeting;
+package woowaapplication.individual.moim.meeting.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
